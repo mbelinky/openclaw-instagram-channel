@@ -9,9 +9,6 @@
     "onStartup": false,
     "onChannels": ["instagram"]
   },
-  "channelEnvVars": {
-    "instagram": ["INSTAGRAM_APP_SECRET", "INSTAGRAM_VERIFY_TOKEN"]
-  },
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

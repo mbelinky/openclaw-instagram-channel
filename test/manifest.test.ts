@@ -47,10 +47,8 @@ describe('plugin manifest', () => {
       id: 'instagram',
       kind: 'channel',
       channels: ['instagram'],
-      channelEnvVars: {
-        instagram: ['INSTAGRAM_APP_SECRET', 'INSTAGRAM_VERIFY_TOKEN'],
-      },
     });
+    expect(manifest).not.toHaveProperty('channelEnvVars');
     const serializedSchema = JSON.stringify(manifest.channelConfigs.instagram.schema);
     expect(serializedSchema).not.toMatch(/secret|accessToken|verifyToken/i);
     expect(manifest.channelConfigs.instagram.schema.properties.accounts.additionalProperties.required)
