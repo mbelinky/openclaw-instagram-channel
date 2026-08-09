@@ -1,0 +1,175 @@
+{
+  "id": "instagram",
+  "kind": "channel",
+  "name": "Instagram DM Channel",
+  "description": "Instagram professional-account DMs via Instagram API with Instagram Login",
+  "version": "1.0.0",
+  "channels": ["instagram"],
+  "activation": {
+    "onStartup": false,
+    "onChannels": ["instagram"]
+  },
+  "channelEnvVars": {
+    "instagram": ["INSTAGRAM_APP_SECRET", "INSTAGRAM_VERIFY_TOKEN"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "channelConfigs": {
+    "instagram": {
+      "label": "Instagram DMs",
+      "description": "Instagram professional-account direct messages",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Activate the Instagram DM channel."
+          },
+          "defaultAccount": {
+            "type": "string",
+            "description": "Optional default account id for outbound sends that omit accountId."
+          },
+          "firstContactStateDir": {
+            "type": "string",
+            "description": "Directory for durable first-contact, automated-receipt, human-takeover, comment-idempotency, and reaction-idempotency state."
+          },
+          "accounts": {
+            "type": "object",
+            "description": "Map of OpenClaw account ids to Instagram professional-account configs.",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "igUserId": {
+                  "type": "string",
+                  "pattern": "^[0-9]+$",
+                  "description": "Instagram professional-account user id."
+                },
+                "messagePrefix": {
+                  "type": "string",
+                  "maxLength": 16,
+                  "description": "Optional prefix added to every outbound message."
+                },
+                "storyMentionReaction": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "React with love to story-mention-only messages while retaining record-only handling."
+                },
+                "mediaShareReaction": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "React with love to recognized shared reels/posts and text-less untyped media while preserving existing handling."
+                },
+                "comments": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "description": "Public-comment handling. Keep disabled until the Meta permission, token, and comments webhook subscription are active.",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean",
+                      "default": false
+                    },
+                    "keywordPrivateReplies": {
+                      "type": "array",
+                      "description": "Deterministic comment-keyword campaigns that send one localized private reply without agent involvement.",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "triggers": {
+                            "type": "object",
+                            "minProperties": 1,
+                            "additionalProperties": {
+                              "type": "array",
+                              "minItems": 1,
+                              "items": {
+                                "type": "string",
+                                "minLength": 1
+                              }
+                            }
+                          },
+                          "replies": {
+                            "type": "object",
+                            "minProperties": 1,
+                            "additionalProperties": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxLength": 1000
+                            }
+                          }
+                        },
+                        "required": ["triggers", "replies"]
+                      }
+                    }
+                  }
+                },
+                "firstContact": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "description": "Optional localized notice sent once before this account's first automated reply to each Instagram sender.",
+                  "properties": {
+                    "messages": {
+                      "type": "object",
+                      "minProperties": 1,
+                      "additionalProperties": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 1000
+                      }
+                    },
+                    "fallbackLocale": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 16
+                    }
+                  },
+                  "required": ["messages", "fallbackLocale"]
+                },
+                "dmPolicy": {
+                  "type": "string",
+                  "enum": ["allowlist", "open"],
+                  "default": "allowlist",
+                  "description": "Who may DM this account."
+                },
+                "allowFrom": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^[0-9]+$"
+                      },
+                      {
+                        "const": "*"
+                      }
+                    ]
+                  },
+                  "description": "Instagram-scoped sender ids accepted when dmPolicy is allowlist; use * with dmPolicy open."
+                }
+              },
+              "required": ["igUserId"]
+            }
+          }
+        },
+        "required": ["accounts"]
+      },
+      "uiHints": {
+        "defaultAccount": {
+          "label": "Default account"
+        }
+      }
+    }
+  }
+}

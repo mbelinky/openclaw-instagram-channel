@@ -1,0 +1,79 @@
+{
+  "name": "openclaw-channel-instagram",
+  "version": "1.0.0",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbelinky/openclaw-instagram-channel.git"
+  },
+  "homepage": "https://github.com/mbelinky/openclaw-instagram-channel#readme",
+  "bugs": {
+    "url": "https://github.com/mbelinky/openclaw-instagram-channel/issues"
+  },
+  "description": "OpenClaw channel plugin for Instagram professional-account direct messages",
+  "keywords": [
+    "openclaw",
+    "instagram",
+    "channel"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ],
+    "setupEntry": "./dist/setup-entry.js",
+    "channel": {
+      "id": "instagram",
+      "label": "Instagram DMs",
+      "selectionLabel": "Instagram DMs (Instagram Login API)",
+      "blurb": "Connect Instagram professional-account DMs to an OpenClaw agent.",
+      "markdownCapable": false,
+      "exposure": {
+        "configured": true,
+        "setup": true,
+        "docs": true
+      }
+    },
+    "install": {
+      "minHostVersion": ">=2026.6.11"
+    },
+    "compat": {
+      "pluginApi": ">=2026.6.11",
+      "minGatewayVersion": "2026.6.11"
+    },
+    "build": {
+      "openclawVersion": "2026.6.11",
+      "pluginSdkVersion": "2026.6.11"
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run clean && tsc",
+    "pretest": "npm run build",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "eld": "^2.0.3"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.6.11"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}
