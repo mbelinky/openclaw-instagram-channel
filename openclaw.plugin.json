@@ -3,7 +3,7 @@
   "kind": "channel",
   "name": "Instagram DM Channel",
   "description": "Instagram professional-account DMs via Instagram API with Instagram Login",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "channels": ["instagram"],
   "activation": {
     "onStartup": false,

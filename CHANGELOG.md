@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Remove deprecated channel environment metadata now covered by the setup entry and channel config schema, clearing the ClawHub validation warning.
+
 ## 1.0.0
 
 - First public beta release of the OpenClaw Instagram channel plugin.
