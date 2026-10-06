@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- Use the public command-detection SDK import to support OpenClaw 2026.10 beta while retaining stable-version compatibility.
+- Include the existing setup-channel contract fix for OpenClaw doctor.
+
 ## 1.0.1
 
 - Remove deprecated channel environment metadata now covered by the setup entry and channel config schema, clearing the ClawHub validation warning.

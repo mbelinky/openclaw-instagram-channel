@@ -47,7 +47,7 @@ vi.mock('openclaw/plugin-sdk/channel-inbound', () => ({
   dispatchInboundDirectDmWithRuntime: mocks.dispatchInboundDirectDmWithRuntime,
 }));
 
-vi.mock('openclaw/plugin-sdk/command-auth', () => ({
+vi.mock('openclaw/plugin-sdk/command-detection', () => ({
   shouldComputeCommandAuthorized: () => false,
 }));
 

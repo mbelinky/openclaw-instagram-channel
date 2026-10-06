@@ -31,7 +31,7 @@ declare module 'openclaw/plugin-sdk/channel-inbound' {
   export function dispatchInboundDirectDmWithRuntime(params: any): Promise<any>;
 }
 
-declare module 'openclaw/plugin-sdk/command-auth' {
+declare module 'openclaw/plugin-sdk/command-detection' {
   export function shouldComputeCommandAuthorized(text?: string, cfg?: any, options?: any): boolean;
 }
 
