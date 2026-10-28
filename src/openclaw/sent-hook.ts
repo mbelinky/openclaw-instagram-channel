@@ -34,10 +34,15 @@ export function emitInstagramMessageSentHook(params: {
       ...(params.sentBy ? { metadata: { sentBy: params.sentBy } } : {}),
       isGroup: false,
     });
+    // The SDK mapper drops metadata, so carry sentBy on the event itself.
+    const sentEvent = {
+      ...toPluginMessageSentEvent(canonical),
+      ...(params.sentBy ? { metadata: { sentBy: params.sentBy } } : {}),
+    };
     fireAndForgetHook(
       Promise.resolve(
         hookRunner.runMessageSent(
-          toPluginMessageSentEvent(canonical),
+          sentEvent,
           toPluginMessageContext(canonical),
         ),
       ),

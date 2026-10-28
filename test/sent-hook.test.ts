@@ -3,7 +3,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   getGlobalHookRunner: vi.fn(),
   buildCanonicalSentMessageHookContext: vi.fn((params: any) => params),
-  toPluginMessageSentEvent: vi.fn((canonical: any) => canonical),
+  // Mirrors the SDK mapper, which does not copy metadata onto the event.
+  toPluginMessageSentEvent: vi.fn(({ metadata: _metadata, ...canonical }: any) => canonical),
   toPluginMessageContext: vi.fn((canonical: any) => canonical),
   fireAndForgetHook: vi.fn(),
 }));
@@ -66,6 +67,7 @@ describe('Instagram message_sent hook', () => {
         messageId: 'mid.abc',
         sessionKey: 'agent:example:instagram:studio:direct:123456789',
         success: true,
+        metadata: { sentBy: 'human' },
       }),
       expect.objectContaining({
         channelId: 'instagram',
